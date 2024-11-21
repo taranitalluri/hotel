@@ -1,0 +1,87 @@
+{% extends 'basic.html' %}
+{% block title %}Payment{% endblock title %}
+{% block body %}
+
+<section class="container py-5">
+    <h3 class="text-center mb-4" style="color: #800080;font-weight: 600;">PAYMENT</h3>
+    <form id="paymentForm" method="POST" action="{% url 'payment_view' %}" onsubmit="showSuccessModal(event)" style="margin-left: 35%;">
+        {% csrf_token %}
+        
+        <!-- Hidden field to store room ID -->
+        <input type="hidden" name="roomid">
+
+        <div class="form-group mb-3" style="width: 50%;">
+            <label for="cardName" class="font-weight-bold">Name on the Card</label>
+            <input type="text" class="form-control" id="cardName" name="card_name" placeholder="Enter name on card" required>
+        </div>
+
+        <div class="form-group mb-3" style="width: 50%;">
+            <label for="cardNumber" class="font-weight-bold">Card Number</label>
+            <input type="text" class="form-control" id="cardNumber" name="card_number" placeholder="Enter card number" required>
+        </div>
+
+        <div class="form-group mb-3" style="width: 50%;">
+            <label for="expiryDate" class="font-weight-bold">Expiry Date</label>
+            <input type="text" class="form-control" id="expiryDate" name="expiry_date" placeholder="MM/YY" required>
+        </div>
+
+        <div class="form-group mb-3" style="width: 50%;">
+            <label for="cvv" class="font-weight-bold">CVV</label>
+            <input type="text" class="form-control" id="cvv" name="cvv" placeholder="CVV" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary zoom-button" style="max-width: fit-content; color: white; font-weight: bold;">Submit Payment</button>
+    </form>
+
+    <style>
+        .zoom-button {
+            background-color: #d4af37;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .zoom-button:hover {
+            transform: scale(1.1); /* Increase the scale for zoom effect */
+            background-color: #800080; /* Change background color on hover */
+        }
+    </style>
+</section>
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Payment Successful</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Your payment was successful! You will be redirected shortly.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Include jQuery and Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    document.getElementById("paymentForm").onsubmit = function(event) {
+        // Allow form submission to proceed
+        // Optionally, you can show the modal after a successful submission here
+        setTimeout(function() {
+            // Show the modal and redirect if necessary
+            $('#successModal').modal('show');
+            setTimeout(function() {
+                window.location.href = '/booknow';
+            }, 5000);
+        }, 1000);  // Optional delay to simulate processing
+    };
+</script>
+
+
+{% endblock body %}

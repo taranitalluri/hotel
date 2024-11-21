@@ -1,0 +1,40 @@
+{% extends 'basic.html' %}
+
+{% block title %}Dashboard{% endblock title %}
+
+{% block body %}
+{% load app_tags %}
+
+<h3  class="text-center" style="color: #800080;font-weight: 600;margin-top: 20px;">My Bookings</h3>
+
+<div class="container mt-4">
+    <!-- Adding margin on left and right using mx-3 -->
+    <table class="table mx" style="text-align-last: center;">
+        <thead>
+            <tr>
+                <th>User</th>
+                <!-- <th>Room</th> -->
+                <th>Location</th>
+                <th>Capacity</th>
+                <th>Check in</th>
+                <th>Check out</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for each_booking in bookings %}
+            <tr>
+                <td>{{each_booking.guest.username}}</td>
+                <!-- <td>{{each_booking.room.roomnumber}}</td> -->
+                <td>{{each_booking.room.hotel.location}}</td>
+                <td>{{each_booking.room.capacity}}</td>
+                <td>{{each_booking.check_in}}</td>
+                <td>{{each_booking.check_out}}</td>
+                <td>£{{each_booking.room.price}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock body %}

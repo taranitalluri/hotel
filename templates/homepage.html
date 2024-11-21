@@ -1,0 +1,92 @@
+{% extends 'basic.html' %}
+
+{% load static %}
+
+{% block title %}Party Hub{% endblock %}
+
+{% block body %}
+<section class="container" style="margin-top: 30px;">
+    <table class="city-table" style="width: 100%; text-align: center; margin-top: 20px;">
+        <tr>
+            <td class="city-item">
+                <a href="/booknow">
+                    <img src="{% static 'images/cambridge.jpg' %}" alt="Cambridge" class="city-image">
+                    <br>
+                    <span class="city-name">Cambridge</span>
+                </a>
+            </td>
+            <td class="city-item">
+                <a href="/booknow">
+                    <img src="{% static 'images/london.jpg' %}" alt="London" class="city-image">
+                    <br>
+                    <span class="city-name">London</span>
+                </a>
+            </td>
+            <td class="city-item">
+                <a href="/booknow">
+                    <img src="{% static 'images/orford.jpg' %}" alt="Oxford" class="city-image">
+                    <br>
+                    <span class="city-name">Oxford</span>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td class="city-item">
+                <a href="/booknow">
+                    <img src="{% static 'images/scotland.jpg' %}" alt="Scotland" class="city-image">
+                    <br>
+                    <span class="city-name">Scotland</span>
+                </a>
+            </td>
+            <td class="city-item">
+                <a href="/booknow">
+                    <img src="{% static 'images/norwich.jpg' %}" alt="Norwich" class="city-image">
+                    <br>
+                    <span class="city-name">Norwich</span>
+                </a>
+            </td>
+            <td class="city-item">
+                <a href="/booknow">
+                    <img src="{% static 'images/peterborough.jpg' %}" alt="Peterborough" class="city-image">
+                    <br>
+                    <span class="city-name">Peterborough</span>
+                </a>
+            </td>
+        </tr>
+    </table>
+</section>
+
+{% block extra_css %}
+<style>
+    .city-item {
+        position: relative;
+        text-align: center;
+        overflow: hidden; /* Prevents the zoomed image from affecting the layout */
+    }
+
+    .city-item:hover .city-image {
+        transform: scale(1.1); /* Zoom in image */
+    }
+
+    .city-item:hover .city-name {
+        font-size: 24px; /* Increase font size */
+        color: #007bff; /* Change font color */
+    }
+
+    .city-image {
+        width: 250px;
+        height: 150px;
+        transition: transform 0.3s ease;
+        margin-top: 30px;
+        border-radius: 10px;
+    }
+
+    .city-name {
+        color: black;
+        font-size: 20px;
+        transition: font-size 0.3s ease, color 0.3s ease;
+        font-weight: bold;
+    }
+</style>
+{% endblock %}
+{% endblock %}

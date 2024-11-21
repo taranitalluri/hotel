@@ -1,0 +1,92 @@
+{% extends 'basic.html' %}
+{% block title %}Book Now{% endblock title %}
+{% block body %}
+<!--Booking Section starts here-->
+<section>
+    <div class="container-fluid py-5 px-5">
+        <div class="row">
+            <!-- Form Section on the left -->
+            <div class="col-lg-8" style="max-width: 57%;">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="py-5 bg-light shadow rounded px-4">
+                        <div class="form-group mb-3">
+                            <label for="roomstatus" class="font-weight-bold">Location</label>
+                            <select class="form-control" name="search_location" id="roomstatus">
+                                <option>Location</option>
+                                {% for each_location, each_hotel_id in all_location %}
+                                    <option value="{{each_hotel_id}}">{{each_location}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        
+                        <div class="form-group mb-3">
+                            <label for="person" class="font-weight-bold">Persons</label>
+                            <input class="form-control" type="number" name="capacity" placeholder="No. of Persons" required>
+                        </div>
+
+                        {% load app_tags %}
+                        
+                        <div class="form-group mb-3">
+                            <label for="checkin" class="font-weight-bold">Check In</label>
+                            <input class="form-control" type="date" name="cin" min="{% todays_date %}" max="{% max_date %}" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="checkout" class="font-weight-bold">Check Out</label>
+                            <input class="form-control" type="date" name="cout" min="{% tommorow %}" max="{% max_date %}" required>
+                        </div>
+
+
+                        <div class="form-group">
+                            <input type="submit" value="Check Availability" class="btn btn-primary w-100" style="max-width: fit-content;">
+                        </div>
+
+                        {% if rooms %}
+                            <!-- <p class="text-center text-success font-weight-bold">Rooms Available</p> -->
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+
+            <!-- Output Section on the right -->
+            <div class="col-lg-4 bg-light shadow rounded p-4" style="max-width: 100%;">
+                {% if rooms %}
+                <h5 class="font-weight-bold text-center">Available Rooms</h5>
+                <table class="table table-bordered table-hover shadow-sm">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Type</th>
+                            <th>Location</th>
+                            <th>Persons</th>
+                            <th>Price</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for r in rooms %}
+                        <tr>
+                            <td>{{ r.get_room_type_display }}</td>
+                            <td>{{ r.hotel.location }}</td>
+                            <td>{{ r.capacity }}</td>
+                            <td>£{{ r.price }} per day</td>
+                            <td>
+                                <a href="/user/book-room?roomid={{r.id}}">
+                                    <button class="btn btn-warning">Book Now</button>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <p class="text-muted" style="text-align: center;">Available rooms will display here</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+<!--Booking Section ends here-->
+
+{% endblock body %}

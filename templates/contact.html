@@ -1,0 +1,38 @@
+{% extends 'basic.html' %}
+{% block title %}Feedback{% endblock title %}
+{% block body %}
+<h1 class="text-center" style="color: #800080;font-weight: 600;margin-top: 20px;">Feedback</h1>
+
+<form method="POST" action="{% url 'contactpage' %}" style="margin-left: 35%;">
+    {% csrf_token %}
+    <div class="form-group" style="width: 50%;">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" class="form-control" required>
+    </div>
+    <div class="form-group" style="width: 50%;">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" class="form-control" required>
+    </div>
+    <div class="form-group" style="width: 50%;">
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" class="form-control" required>
+    </div>
+    <div class="form-group" style="width: 50%;">
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" class="form-control" rows="4" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary zoom-button" style="margin-bottom: 20px; color: white; font-weight: bold;">Send Message</button>
+</form>
+
+<style>
+    .zoom-button {
+        background-color: #d4af37;
+        transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+    .zoom-button:hover {
+        transform: scale(1.1); /* Increase the scale for zoom effect */
+        background-color: #800080; /* Change background color on hover */
+    }
+</style>
+
+{% endblock body %}
